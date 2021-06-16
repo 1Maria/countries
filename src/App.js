@@ -14,12 +14,16 @@ const App = () => {
       });
   }, []);
 
-  const handleSearchChange = (event) => {
-    console.log(event.target.value);
-    setSearch(event.target.value);
-  }
 
-  const searchResults = search ? countries.filter(country => country.name.toLowerCase().includes(search.toLowerCase())) : countries;
+
+  const searchResults = search && (countries.filter(country => country.name.toLowerCase().includes(search.toLowerCase())).length > 10) 
+    ? "Too many matches, specify another filter" 
+    : search && (countries.filter(country => country.name.toLowerCase().includes(search.toLowerCase())).length > 1) 
+      ? countries.filter(country => country.name.toLowerCase().includes(search.toLowerCase())) 
+        : search && (countries.filter(country => country.name.toLowerCase().includes(search.toLowerCase())).length == 1) 
+          ? countries.filter(country => country.name.toLowerCase().includes(search.toLowerCase())) 
+          : '';
+      
 
   return (
     <div>
@@ -31,8 +35,9 @@ const App = () => {
           />
       </div>
       <div>
-        {searchResults.map(search => 
-          <Search key={search.name} search={search} />)}
+        {/* {searchResults.map(search => 
+          <Search key={search.name} search={search} />)} */}
+          {searchResults}
       </div>
     </div>
   );
