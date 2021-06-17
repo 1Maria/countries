@@ -14,15 +14,22 @@ const App = () => {
       });
   }, []);
 
+  const handleSearchChange = (event) => {
+    console.log(event.target.value);
+    setSearch(event.target.value);
+  }
+
+  const currentCountriesList = countries.filter(country => country.name.toLowerCase().includes(search.toLowerCase()));
+
+  // const searchResults = search && currentCountriesList.length > 10
+  //   ? "Too many matches, specify another filter" 
+  //   : search && currentCountriesList.length > 1
+  //     ? currentCountriesList
+  //       : search && currentCountriesList.length === 1 
+  //         ? currentCountriesList
+  //         : '';
 
 
-  const searchResults = search && (countries.filter(country => country.name.toLowerCase().includes(search.toLowerCase())).length > 10) 
-    ? "Too many matches, specify another filter" 
-    : search && (countries.filter(country => country.name.toLowerCase().includes(search.toLowerCase())).length > 1) 
-      ? countries.filter(country => country.name.toLowerCase().includes(search.toLowerCase())) 
-        : search && (countries.filter(country => country.name.toLowerCase().includes(search.toLowerCase())).length == 1) 
-          ? countries.filter(country => country.name.toLowerCase().includes(search.toLowerCase())) 
-          : '';
       
 
   return (
@@ -37,7 +44,11 @@ const App = () => {
       <div>
         {/* {searchResults.map(search => 
           <Search key={search.name} search={search} />)} */}
-          {searchResults}
+          {/* {searchResults} */}
+          {search && currentCountriesList.length > 10 ? "Too many matches, specify another filter" : 
+            search && currentCountriesList.length > 1 ? currentCountriesList.map(country => <Search key={country.name} search={country} /> ) : 
+              search && currentCountriesList.length === 1 ? JSON.stringify(currentCountriesList) : 
+                ''}
       </div>
     </div>
   );
