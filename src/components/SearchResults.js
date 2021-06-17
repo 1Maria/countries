@@ -6,9 +6,14 @@ const SearchResults = ({ search }) => {
     let searchResults = '';
 
     if (search.length === 1) {
-        searchResults = <CountryDetails search={search[0]} />;
+        searchResults = <CountryDetails country={search[0]} />;
     } else if (search.length <= 10) {
-        searchResults = search.map(country => <Search key={country.name} search={country} /> )
+        searchResults = search.map(
+            country => 
+            <>
+                <Search key={country.name} country={country} />
+
+            </>)
     } else {
         searchResults = 'Too many matches, specify another filter';
     }

@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
+import CountryDetails from './CountryDetails';
 
-const Search = ({ search }) => {
+const Search = ({ country }) => {
+    const [details, setDetails] = useState(false);
+
+    const showButton = 
+        <button onClick={() => setDetails(!details)}>
+            show 
+        </button>
+
     return (
-        <div>{search.name} </div>
+        <div>
+            {country.name} {showButton}
+            {details ? <CountryDetails key={country.name} country={country} /> : ''}
+        </div>
     );
 }
 
