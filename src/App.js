@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Search from './components/Search';
+import SearchResults from './components/SearchResults';
 
 const App = () => {
   const [countries, setCountries] = useState([]);
@@ -12,25 +12,14 @@ const App = () => {
       .then(response => {
         setCountries(response.data);
       });
-  }, []);
+  }, []);                                                                                                                                                                                                                 
 
   const handleSearchChange = (event) => {
     console.log(event.target.value);
     setSearch(event.target.value);
   }
 
-  const currentCountriesList = countries.filter(country => country.name.toLowerCase().includes(search.toLowerCase()));
-
-  // const searchResults = search && currentCountriesList.length > 10
-  //   ? "Too many matches, specify another filter" 
-  //   : search && currentCountriesList.length > 1
-  //     ? currentCountriesList
-  //       : search && currentCountriesList.length === 1 
-  //         ? currentCountriesList
-  //         : '';
-
-
-      
+  const currentCountriesList = countries.filter(country => country.name.toLowerCase().includes(search.toLowerCase()));     
 
   return (
     <div>
@@ -42,13 +31,7 @@ const App = () => {
           />
       </div>
       <div>
-        {/* {searchResults.map(search => 
-          <Search key={search.name} search={search} />)} */}
-          {/* {searchResults} */}
-          {search && currentCountriesList.length > 10 ? "Too many matches, specify another filter" : 
-            search && currentCountriesList.length > 1 ? currentCountriesList.map(country => <Search key={country.name} search={country} /> ) : 
-              search && currentCountriesList.length === 1 ? JSON.stringify(currentCountriesList) : 
-                ''}
+        <SearchResults search={currentCountriesList} />
       </div>
     </div>
   );
