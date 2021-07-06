@@ -12,7 +12,7 @@ const App = () => {
       .then(response => {
         setCountries(response.data);
       });
-  }, []);                                                                                                                                                                                                                 
+  }, []);  
 
   const handleSearchChange = (event) => {
     console.log(event.target.value);
